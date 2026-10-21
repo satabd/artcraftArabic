@@ -1,6 +1,7 @@
 import { memo } from "react";
 import Konva from "konva";
 import { Text as KonvaText } from "react-konva";
+import { detectTextDirection } from "@storyteller/common";
 import { TextNode as TextNodeData } from "../types";
 import { useMoodboardStore } from "../MoodboardStore";
 import { useNodeDrag } from "../interactions/useNodeDrag";
@@ -28,6 +29,10 @@ const TextNodeInner = ({ node, draggable, selected, onSelect }: Props) => {
     e: Konva.KonvaEventObject<MouseEvent | TouchEvent>,
   ) => onSelect(node.id, e);
 
+  // Arabic/Hebrew notes hang from the right edge; Konva shapes the glyphs
+  // but needs the base direction to order mixed text correctly.
+  const direction = detectTextDirection(node.text);
+
   return (
     <KonvaText
       id={node.id}
@@ -37,6 +42,8 @@ const TextNodeInner = ({ node, draggable, selected, onSelect }: Props) => {
       height={node.height}
       rotation={node.rotation}
       text={isEditing ? "" : node.text || "Note"}
+      direction={direction}
+      align={direction === "rtl" ? "right" : "left"}
       fontSize={node.fontSize}
       fill={node.color}
       padding={6}

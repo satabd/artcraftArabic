@@ -861,3 +861,80 @@ img {
     margin-inline: 32px;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Arabic / right-to-left support                                      */
+/* ------------------------------------------------------------------ */
+
+/* Archivo and Geist Mono have no Arabic glyphs. When the app language is
+   Arabic (<html lang="ar">), swap every face for IBM Plex Sans Arabic so
+   headings, body and mono labels all render with one consistent script. */
+:lang(ar) body,
+:lang(ar) h1,
+:lang(ar) h2,
+:lang(ar) h3,
+:lang(ar) h4,
+:lang(ar) h5,
+:lang(ar) h6,
+:lang(ar) .hud-label,
+:lang(ar) .font-mono,
+:lang(ar) .font-display,
+:lang(ar) .font-sans {
+  font-family:
+    "IBM Plex Sans Arabic",
+    "Segoe UI",
+    "Noto Sans Arabic",
+    "Geeza Pro",
+    Tahoma,
+    Arial,
+    sans-serif;
+}
+
+/* Arabic letters join to their neighbours. Any tracking (positive or
+   negative) breaks the joins, and Archivo's expanded width axis does not
+   apply to a different font, so reset both. */
+:lang(ar) h1,
+:lang(ar) h2,
+:lang(ar) h3,
+:lang(ar) h4,
+:lang(ar) h5,
+:lang(ar) h6,
+:lang(ar) .hud-label,
+:lang(ar) .font-mono,
+:lang(ar) .font-serif-italic,
+:lang(ar) [class*="tracking-"] {
+  letter-spacing: 0 !important;
+  font-stretch: normal;
+}
+
+/* Every text field follows the direction of what the user types (same as
+   dir="auto"), so Arabic prompts read right-to-left even in the English UI
+   and English text stays left-to-right in the Arabic UI. Components that
+   need it also set dir="auto" explicitly for engines without this rule. */
+input:not([type="number"]):not([type="range"]):not([type="color"]),
+textarea,
+[contenteditable="true"],
+[contenteditable="plaintext-only"] {
+  unicode-bidi: plaintext;
+}
+
+/* Tailwind's space-x-* and divide-x-* put the gap on a physical side. In a
+   right-to-left layout the row renders mirrored, so flip the gap too. */
+[dir="rtl"] [class*="space-x-"]:not(.space-x-reverse) > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] [class*="divide-x-"]:not(.divide-x-reverse) > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-x-reverse: 1;
+}
+
+/* Marquee scrolls toward the reading direction. */
+[dir="rtl"] .animate-marquee {
+  animation-direction: reverse;
+}
+
+/* Opt-in helper for directional glyphs (chevrons, back arrows, "send"
+   icons) that must point the other way in a right-to-left layout. */
+[dir="rtl"] .rtl-mirror {
+  transform: scaleX(-1);
+}

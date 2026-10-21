@@ -13,6 +13,7 @@ import { SyncStorytellerApiConfig } from "./api/SyncStorytellerApiConfig";
 import { posthog } from "posthog-js";
 import { SoundManager } from "@storyteller/soundboard";
 import { useModelsStore } from "@storyteller/tauri-api";
+import { initDocumentLocale } from "@storyteller/common";
 
 // TODO(bt,2025-04-19): Make these configurable
 const ENV = {
@@ -65,6 +66,11 @@ const GlobalSettingsManager = ({ env }: { env: Record<string, string> }) => {
     });
     toRemove.forEach((c) => root.classList.remove(c));
     root.classList.add(`theme-${theme}`);
+  }, []);
+
+  // Apply stored language + layout direction (<html lang dir>) early on mount
+  useEffect(() => {
+    initDocumentLocale();
   }, []);
 
   /// Initizations that run only once on 1ST mount ///

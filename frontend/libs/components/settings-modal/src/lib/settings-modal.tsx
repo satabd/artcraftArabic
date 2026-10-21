@@ -1,6 +1,6 @@
 import { Modal } from "@storyteller/ui-modal";
 import { useEffect, useState } from "react";
-import { CreditCardIcon, DownloadIcon, FlaskConicalIcon, InfoIcon, KeyboardIcon, PaletteIcon, SettingsIcon, UserIcon, Volume2Icon } from "lucide-react";
+import { CreditCardIcon, DownloadIcon, FlaskConicalIcon, InfoIcon, KeyboardIcon, LanguagesIcon, PaletteIcon, SettingsIcon, UserIcon, Volume2Icon } from "lucide-react";
 import { DynamicIcon } from "@storyteller/icons";
 import { twMerge } from "tailwind-merge";
 import { KeybindsSettings } from "@storyteller/keybinds";
@@ -14,6 +14,8 @@ import { ExperimentalSettingsPane } from "./panes/ExperimentalSettingsPane";
 import { gtagEvent } from "@storyteller/google-analytics";
 import { BillingSettingsPane } from "./panes/BillingSettingsPane";
 import { AppearanceSettingsPane } from "./panes/AppearanceSettingsPane";
+import { LanguageSettingsPane } from "./panes/LanguageSettingsPane";
+import { useTranslation } from "@storyteller/common";
 import { Button } from "@storyteller/ui-button";
 import { useExperimentalStore } from "./experimental-store";
 import { ExperimentalConfirmModal } from "./ExperimentalConfirmModal";
@@ -30,6 +32,7 @@ type SettingsSection =
   | "general"
   | "downloads"
   | "appearance"
+  | "language"
   | "keybinds"
   | "accounts"
   | "alerts"
@@ -51,6 +54,7 @@ export const SettingsModal = ({
   const experimentalEnabled = useExperimentalStore((s) => s.enabled);
   const disableExperimental = useExperimentalStore((s) => s.disable);
   const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
+  const { t } = useTranslation();
 
   // Sync the selected section with incoming prop when modal opens or prop changes
   useEffect(() => {
@@ -67,25 +71,26 @@ export const SettingsModal = ({
   }, [experimentalEnabled, selectedSection]);
 
   const sections = [
-    { id: "general" as const, label: "General", icon: SettingsIcon },
-    { id: "downloads" as const, label: "Downloads", icon: DownloadIcon },
+    { id: "general" as const, label: t("settings.section.general"), icon: SettingsIcon },
+    { id: "downloads" as const, label: t("settings.section.downloads"), icon: DownloadIcon },
 
-    { id: "accounts" as const, label: "Accounts", icon: UserIcon },
-    { id: "billing" as const, label: "Plan & Credits", icon: CreditCardIcon },
+    { id: "accounts" as const, label: t("settings.section.accounts"), icon: UserIcon },
+    { id: "billing" as const, label: t("settings.section.billing"), icon: CreditCardIcon },
 
     /* {
       id: "provider_priority" as const,
       label: "Provider Priority",
       icon: RouteIcon,
     }, */
-    { id: "appearance" as const, label: "Appearance", icon: PaletteIcon },
-    { id: "keybinds" as const, label: "Keybinds", icon: KeyboardIcon },
-    { id: "alerts" as const, label: "Alerts", icon: Volume2Icon },
-    { id: "about" as const, label: "About", icon: InfoIcon },
+    { id: "appearance" as const, label: t("settings.section.appearance"), icon: PaletteIcon },
+    { id: "language" as const, label: t("settings.section.language"), icon: LanguagesIcon },
+    { id: "keybinds" as const, label: t("settings.section.keybinds"), icon: KeyboardIcon },
+    { id: "alerts" as const, label: t("settings.section.alerts"), icon: Volume2Icon },
+    { id: "about" as const, label: t("settings.section.about"), icon: InfoIcon },
     //{ id: "video" as const, label: "Video", icon: VideoIcon },
     //{ id: "image" as const, label: "Image", icon: ImageIcon },
     ...(experimentalEnabled
-      ? [{ id: "experimental" as const, label: "Experimental", icon: FlaskConicalIcon }]
+      ? [{ id: "experimental" as const, label: t("settings.section.experimental"), icon: FlaskConicalIcon }]
       : []),
   ];
 
@@ -93,6 +98,8 @@ export const SettingsModal = ({
     switch (selectedSection) {
       case "appearance":
         return <AppearanceSettingsPane />;
+      case "language":
+        return <LanguageSettingsPane />;
       case "keybinds":
         return <KeybindsSettings />;
       case "alerts":
@@ -138,10 +145,10 @@ export const SettingsModal = ({
       >
         <div className="h-[600px]">
           <div className="grid h-full grid-cols-12 gap-3">
-            <div className="relative col-span-4 p-3 pt-2 after:absolute after:right-0 after:top-0 after:h-full after:w-px after:bg-ui-panel-border">
+            <div className="relative col-span-4 p-3 pt-2 after:absolute after:end-0 after:top-0 after:h-full after:w-px after:bg-ui-panel-border">
               <div className="flex items-center justify-between gap-2.5 py-0.5">
                 <h2 className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-base-fg/60">
-                  Settings
+                  {t("settings.title")}
                 </h2>
               </div>
               <hr className="my-2 w-full border-ui-panel-border" />
@@ -150,7 +157,7 @@ export const SettingsModal = ({
                   <button
                     key={section.id}
                     className={twMerge(
-                      "h-9 w-full px-2 text-left transition-colors duration-100",
+                      "h-9 w-full px-2 text-start transition-colors duration-100",
                       section.id === selectedSection
                         ? "bg-base-fg/10 text-base-fg"
                         : "text-base-fg/70 hover:bg-base-fg/[0.06] hover:text-base-fg",

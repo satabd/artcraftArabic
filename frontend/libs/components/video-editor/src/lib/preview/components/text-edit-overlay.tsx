@@ -92,7 +92,8 @@ export function TextEditOverlay({
   });
 
   const lineHeight = textParams.lineHeight ?? DEFAULTS.text.lineHeight;
-  const canvasLetterSpacing = textParams.letterSpacing ?? 0;
+  // Mirror the renderer: Arabic-script text drops tracking so joins stay intact.
+  const canvasLetterSpacing = resolvedTextLayout.letterSpacing;
   const lineHeightPx = resolvedTextLayout.lineHeightPx;
 
   const bg = buildTextBackgroundFromElement({ element });
@@ -120,6 +121,7 @@ export function TextEditOverlay({
         ref={divRef}
         contentEditable
         suppressContentEditableWarning
+        dir={resolvedTextLayout.direction}
         tabIndex={0}
         role="textbox"
         aria-label="Edit text"

@@ -24,6 +24,9 @@
       "path": "../../icons"
     },
     {
+      "path": "../../common"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {
