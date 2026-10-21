@@ -233,12 +233,12 @@ export function MentionChipMenu({
           <div className="my-1 border-t border-ui-panel-border" />
           <button type="button" className={MENU_ROW} onClick={() => setView("replace")}>
             <RefreshCwIcon  className="h-3.5 w-3.5 opacity-60" />
-            <span className="flex-1 text-left">Replace</span>
+            <span className="flex-1 text-start">Replace</span>
             <span className="text-xs text-base-fg/40">{replaceItems.length}</span>
           </button>
           <button type="button" className={MENU_ROW} onClick={onPreview}>
             <EyeIcon  className="h-3.5 w-3.5 opacity-60" />
-            <span className="flex-1 text-left">Preview</span>
+            <span className="flex-1 text-start">Preview</span>
           </button>
           <div className="my-1 border-t border-ui-panel-border" />
           <button
@@ -247,7 +247,7 @@ export function MentionChipMenu({
             onClick={onRemove}
           >
             <Trash2Icon  className="h-3.5 w-3.5 opacity-60" />
-            <span className="flex-1 text-left">Remove</span>
+            <span className="flex-1 text-start">Remove</span>
           </button>
         </>
       ) : (
@@ -259,7 +259,7 @@ export function MentionChipMenu({
               onClick={() => setView("menu")}
               aria-label="Back"
             >
-              <ChevronLeftIcon  className="h-3 w-3" />
+              <ChevronLeftIcon  className="rtl-mirror h-3 w-3" />
             </button>
             <div className="min-w-0">
               <div className="text-sm font-medium text-base-fg">Replace</div>
@@ -288,7 +288,7 @@ export function MentionChipMenu({
                   name={item.label}
                   type={item.type}
                 />
-                <span className="min-w-0 flex-1 truncate text-left">
+                <span className="min-w-0 flex-1 truncate text-start">
                   {item.label.replace(/^@/, "")}
                 </span>
               </button>

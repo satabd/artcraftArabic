@@ -7,6 +7,7 @@ export default {
     "./app/src/**/*.{js,jsx,ts,tsx}",
     "./app/src/*.{js,jsx,ts,tsx}",
     "../../libs/components/**/*.{js,jsx,ts,tsx}",
+    "../../libs/markdown-content/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {

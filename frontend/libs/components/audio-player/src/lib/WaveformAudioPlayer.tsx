@@ -315,7 +315,7 @@ export function WaveformAudioPlayer({
           />
         </button>
         {showVolume && (
-          <div className="absolute bottom-full right-0 z-20 mb-2 w-28 rounded-lg border border-white/10 bg-neutral-900/95 px-3 py-2.5 shadow-xl backdrop-blur">
+          <div className="absolute bottom-full end-0 z-20 mb-2 w-28 rounded-lg border border-white/10 bg-neutral-900/95 px-3 py-2.5 shadow-xl backdrop-blur">
             <SliderV2
               min={0}
               max={100}

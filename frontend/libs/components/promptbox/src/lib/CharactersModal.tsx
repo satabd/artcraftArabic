@@ -435,7 +435,7 @@ const CharacterListView = ({
                 {/* View / Edit / Delete overlay buttons. Hover-revealed on
                     desktop; always visible on touch devices (no hover). */}
                 {(character.maybe_avatar?.cdn_url || isUserCreated) && (
-                  <div className="absolute right-1.5 top-1.5 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100 [@media(hover:none)]:opacity-100">
+                  <div className="absolute end-1.5 top-1.5 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100 [@media(hover:none)]:opacity-100">
                     {character.maybe_avatar?.cdn_url && (
                       <button
                         onClick={(e) => {
@@ -565,7 +565,7 @@ const EditCharacterView = ({
             onClick={onBack}
             className="flex items-center justify-center text-base-fg/60 transition-colors hover:text-base-fg"
           >
-            <ArrowLeftIcon />
+            <ArrowLeftIcon className="rtl-mirror" />
           </button>
           <h2 className="text-xl font-bold text-base-fg">Edit Character</h2>
         </div>
@@ -827,7 +827,7 @@ const NewCharacterView = ({
             onClick={onBack}
             className="flex items-center justify-center text-base-fg/60 transition-colors hover:text-base-fg"
           >
-            <ArrowLeftIcon />
+            <ArrowLeftIcon className="rtl-mirror" />
           </button>
           <h2 className="text-xl font-bold text-base-fg">New Character</h2>
         </div>
@@ -867,7 +867,7 @@ const NewCharacterView = ({
                   e.stopPropagation();
                   removeImage(0);
                 }}
-                className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center bg-black/60 text-white/80 opacity-0 transition-all group-hover:opacity-100 hover:bg-red-500"
+                className="absolute end-2 top-2 flex h-7 w-7 items-center justify-center bg-black/60 text-white/80 opacity-0 transition-all group-hover:opacity-100 hover:bg-red-500"
               >
                 <XIcon  className="text-sm" />
               </button>

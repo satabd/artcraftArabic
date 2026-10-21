@@ -66,7 +66,7 @@ function AppCard({ app }: { app: FullAppItem }) {
       onClick={() => goToApp(app.action)}
       disabled={!enabled}
       className={twMerge(
-        "group relative flex h-full rounded-[3px] border border-ui-border bg-white/5 p-5 text-left transition-colors duration-150 focus-visible:border-primary",
+        "group relative flex h-full rounded-[3px] border border-ui-border bg-white/5 p-5 text-start transition-colors duration-150 focus-visible:border-primary",
         enabled ? twMerge("cursor-pointer", palette.hoverStyle) : "cursor-default opacity-60",
       )}
     >
@@ -101,7 +101,7 @@ function AppCard({ app }: { app: FullAppItem }) {
             </div>
             {enabled && (
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-[3px] border border-white/15 text-white/40 transition-colors duration-150 group-hover:border-white/40 group-hover:text-white">
-                <ArrowRightIcon className="text-xs" />
+                <ArrowRightIcon className="rtl-mirror text-xs" />
               </span>
             )}
           </div>

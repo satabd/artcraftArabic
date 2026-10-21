@@ -9,6 +9,11 @@ import {
   setCanvasLetterSpacing,
 } from "./layout";
 import { FONT_SIZE_SCALE_REFERENCE } from "./typography";
+import {
+  containsArabicScript,
+  detectTextDirection,
+  type TextDirection,
+} from "./direction";
 
 // Full text-layout pipeline used by both the renderer (canvas draw)
 // and the preview (hit-test bounds). Single source of truth for text
@@ -35,6 +40,8 @@ export interface TextLayoutParams {
 export interface ResolvedTextLayout {
   scaledFontSize: number;
   fontString: string;
+  /** Base direction from the first strong character of the content. */
+  direction: TextDirection;
   letterSpacing: number;
   lineHeightPx: number;
   fontSizeRatio: number;
@@ -87,7 +94,12 @@ export function resolveTextLayout({
     text.fontSize * (canvasHeight / FONT_SIZE_SCALE_REFERENCE);
   const fontWeight = text.fontWeight === "bold" ? "bold" : "normal";
   const fontStyle = text.fontStyle === "italic" ? "italic" : "normal";
-  const letterSpacing = text.letterSpacing ?? DEFAULTS.text.letterSpacing;
+  const direction = detectTextDirection({ text: text.content });
+  // Arabic letters join to their neighbours; canvas letterSpacing is applied
+  // per glyph and breaks the joins, so Arabic-script text always runs at 0.
+  const letterSpacing = containsArabicScript({ text: text.content })
+    ? 0
+    : (text.letterSpacing ?? DEFAULTS.text.letterSpacing);
   const lineHeightPx =
     scaledFontSize * (text.lineHeight ?? DEFAULTS.text.lineHeight);
   const fontSizeRatio = text.fontSize / 15;
@@ -100,6 +112,7 @@ export function resolveTextLayout({
       fontStyle,
       scaledFontSize,
     }),
+    direction,
     letterSpacing,
     lineHeightPx,
     fontSizeRatio,
@@ -122,6 +135,7 @@ export function measureTextLayout({
 
   ctx.save();
   ctx.font = resolvedLayout.fontString;
+  ctx.direction = resolvedLayout.direction;
   ctx.textBaseline = "middle";
   setCanvasLetterSpacing({
     ctx,
@@ -159,6 +173,7 @@ export function drawMeasuredTextLayout({
   textBaseline?: CanvasTextBaseline;
 }): void {
   ctx.font = layout.fontString;
+  ctx.direction = layout.direction;
   ctx.textAlign = layout.textAlign;
   ctx.textBaseline = textBaseline;
   ctx.fillStyle = textColor;
@@ -231,6 +246,7 @@ export function strokeMeasuredTextLayout({
   textBaseline?: CanvasTextBaseline;
 }): void {
   ctx.font = layout.fontString;
+  ctx.direction = layout.direction;
   ctx.textAlign = layout.textAlign;
   ctx.textBaseline = textBaseline;
   ctx.strokeStyle = strokeColor;

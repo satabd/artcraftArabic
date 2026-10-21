@@ -109,12 +109,12 @@ export const ItemInspector = ({
     >
       {/* Invisible drag strip along the top, matching the shared lightbox. */}
       <Modal.DragHandle>
-        <div className="absolute left-0 top-0 z-20 h-12 w-full cursor-move rounded-t-xl" />
+        <div className="absolute start-0 top-0 z-20 h-12 w-full cursor-move rounded-t-xl" />
       </Modal.DragHandle>
 
       <div className="flex h-full gap-4">
         {/* Media panel — flexible width, dark plate, contained media. */}
-        <div className="group/nav relative flex h-full flex-1 items-center justify-center overflow-hidden rounded-l-xl bg-black/30">
+        <div className="group/nav relative flex h-full flex-1 items-center justify-center overflow-hidden rounded-s-xl bg-black/30">
           <Media item={item} />
 
           {hasPrev && <NavArrow side="left" onClick={onPrev} />}
@@ -124,7 +124,7 @@ export const ItemInspector = ({
         {/* Info + actions — fixed width, scrollable body, buttons pinned bottom. */}
         <div className="flex h-full w-[280px] shrink-0 flex-col">
           <div className="min-h-0 flex-1 space-y-5 overflow-y-auto pb-2 text-base-fg">
-            <div className="flex items-center gap-2.5 border-b border-white/5 pb-3 pr-10">
+            <div className="flex items-center gap-2.5 border-b border-white/5 pb-3 pe-10">
               <span className="rounded-full border border-ui-panel-border px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-base-fg/55">
                 {KIND_LABEL[item.kind]}
               </span>
@@ -336,7 +336,7 @@ const NavArrow = ({
       "absolute top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full",
       "bg-black/50 text-white/70 opacity-0 transition-opacity duration-200",
       "hover:bg-black/70 hover:text-white group-hover/nav:opacity-100 focus:outline-none",
-      side === "left" ? "left-3" : "right-3",
+      side === "left" ? "start-3" : "end-3",
     ].join(" ")}
   >
     <DynamicIcon

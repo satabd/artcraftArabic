@@ -66,6 +66,9 @@
       "path": "../modal"
     },
     {
+      "path": "../../common"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

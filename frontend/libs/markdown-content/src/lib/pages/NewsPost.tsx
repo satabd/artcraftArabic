@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom";
+import { useLanguage } from "@storyteller/common";
 import { getNewsPostBySlug } from "../data/content";
 import { markdownToHtml } from "../utils/markdown";
 import { ChevronLeftIcon } from "lucide-react";
@@ -12,7 +13,8 @@ interface NewsPostProps {
 export const NewsPost = ({ slug: propSlug, basePath }: NewsPostProps) => {
   const { slug: paramSlug } = useParams();
   const slug = propSlug || paramSlug;
-  const post = slug ? getNewsPostBySlug(slug) : null;
+  const language = useLanguage();
+  const post = slug ? getNewsPostBySlug(slug, { language }) : null;
 
   const html = useMemo(() => (post ? markdownToHtml(post.body) : ""), [post]);
 
@@ -45,7 +47,7 @@ export const NewsPost = ({ slug: propSlug, basePath }: NewsPostProps) => {
             to={basePath}
             className="rounded-lg px-4 py-2 text-sm border border-white/10 bg-white/5 hover:bg-white/10 inline-flex items-center gap-2 transition-colors"
           >
-            <ChevronLeftIcon />
+            <ChevronLeftIcon className="rtl-mirror" />
             Back to News
           </Link>
           {post.date && (
@@ -53,12 +55,20 @@ export const NewsPost = ({ slug: propSlug, basePath }: NewsPostProps) => {
           )}
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 !leading-tight tracking-tight">
+        <h1
+          className="text-4xl md:text-5xl font-bold mb-6 !leading-tight tracking-tight"
+          lang={post.lang}
+          dir={post.direction}
+        >
           {post.title}
         </h1>
 
         {post.description && (
-          <p className="text-xl text-white/70 mb-8 leading-relaxed font-light border-l-4 border-primary pl-4">
+          <p
+            className="text-xl text-white/70 mb-8 leading-relaxed font-light border-s-4 border-primary ps-4"
+            lang={post.lang}
+            dir={post.direction}
+          >
             {post.description}
           </p>
         )}
@@ -75,6 +85,8 @@ export const NewsPost = ({ slug: propSlug, basePath }: NewsPostProps) => {
 
         <article
           className="article-content max-w-none text-white/90 leading-relaxed"
+          lang={post.lang}
+          dir={post.direction}
           dangerouslySetInnerHTML={{ __html: html }}
         />
         <style>{`
@@ -83,12 +95,12 @@ export const NewsPost = ({ slug: propSlug, basePath }: NewsPostProps) => {
           .article-content h3 { font-size: 1.5rem; font-weight: 600; margin: 1.5rem 0 0.75rem; color: #bae6fd; }
           .article-content h4 { font-size: 1.25rem; font-weight: 600; margin: 1rem 0 0.5rem; }
           .article-content p { margin: 1rem 0; line-height: 1.75; font-size: 1.05rem; }
-          .article-content ul { list-style: disc; padding-left: 1.5rem; margin: 1rem 0; }
+          .article-content ul { list-style: disc; padding-inline-start: 1.5rem; margin: 1rem 0; }
           .article-content li { margin-bottom: 0.5rem; }
           .article-content img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 0.75rem; border: 1px solid rgba(255,255,255,0.1); margin: 2rem 0; }
           .article-content a { color: #3b82f6; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
           .article-content a:hover { border-bottom-color: #3b82f6; }
-          .article-content blockquote { border-left: 4px solid #3b82f6; padding-left: 1rem; font-style: italic; color: rgba(255,255,255,0.7); margin: 1.5rem 0; }
+          .article-content blockquote { border-inline-start: 4px solid #3b82f6; padding-inline-start: 1rem; font-style: italic; color: rgba(255,255,255,0.7); margin: 1.5rem 0; }
           .article-content code { background: rgba(255,255,255,0.1); padding: 0.2em 0.4em; border-radius: 0.25em; font-family: monospace; font-size: 0.9em; }
           .article-content pre { background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1); }
           .article-content pre code { background: transparent; padding: 0; color: inherit; }
@@ -96,7 +108,7 @@ export const NewsPost = ({ slug: propSlug, basePath }: NewsPostProps) => {
           /* Video embed styles */
           .article-content .video-embed { position: relative; width: 100%; margin: 2rem 0; border-radius: 0.75rem; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #000; }
           .article-content .youtube-embed { padding-bottom: 56.25%; /* 16:9 aspect ratio */ height: 0; }
-          .article-content .youtube-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+          .article-content .youtube-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
           .article-content .video-embed video { display: block; width: 100%; height: auto; max-height: 70vh; }
         `}</style>
       </div>

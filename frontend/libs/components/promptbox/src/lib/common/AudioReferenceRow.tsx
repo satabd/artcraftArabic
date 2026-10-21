@@ -220,7 +220,7 @@ export const AudioReferenceRow = forwardRef<
               ({referenceAudios.length}/{maxAudioCount})
             </span>
             {audioRequired && referenceAudios.length === 0 && (
-              <span className="ml-1.5 text-xs font-medium text-red-500">
+              <span className="ms-1.5 text-xs font-medium text-red-500">
                 required
               </span>
             )}

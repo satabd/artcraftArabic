@@ -113,7 +113,7 @@ export const SliderV2 = ({
       {showDecrement && (
         <Button
           icon={MinusIcon}
-          className="focus-visible:outline-primary my-auto mr-1 size-6 rounded-full bg-transparent text-white/80 hover:bg-white/10 active:bg-primary/30"
+          className="focus-visible:outline-primary my-auto me-1 size-6 rounded-full bg-transparent text-white/80 hover:bg-white/10 active:bg-primary/30"
           onClick={handleDecrement}
         />
       )}
@@ -138,7 +138,7 @@ export const SliderV2 = ({
             {innerLabel && (
               <span
                 className={twMerge(
-                  "absolute top-1/2 ml-2.5 -translate-y-1/2 text-nowrap text-sm font-medium text-white/60 transition-colors duration-300 group-hover:text-white",
+                  "absolute top-1/2 ms-2.5 -translate-y-1/2 text-nowrap text-sm font-medium text-white/60 transition-colors duration-300 group-hover:text-white",
                   isDragging && "!text-white"
                 )}
               >
@@ -147,7 +147,7 @@ export const SliderV2 = ({
             )}
             <div
               className={twMerge(
-                "absolute right-0 top-1/2 mr-1 h-4 w-0.5 -translate-y-1/2 rounded-full",
+                "absolute end-0 top-1/2 me-1 h-4 w-0.5 -translate-y-1/2 rounded-full",
                 isDragging ? "bg-white" : "bg-white/50"
               )}
               onMouseDown={handleMouseDown}
@@ -165,10 +165,10 @@ export const SliderV2 = ({
           )}
           onMouseDown={handleMouseDown}
         >
-          <div className="absolute left-0 right-0 h-2 bg-ui-border rounded-full bg-white/15" />
+          <div className="absolute start-0 end-0 h-2 bg-ui-border rounded-full bg-white/15" />
           {showProgressBar && (
             <div
-              className="absolute left-0 h-2 bg-white rounded-full transition-all duration-200"
+              className="absolute start-0 h-2 bg-white rounded-full transition-all duration-200"
               style={{ width: `${percentage}%` }}
             />
           )}
@@ -188,7 +188,7 @@ export const SliderV2 = ({
       {showIncrement && (
         <Button
           icon={PlusIcon}
-          className="focus-visible:outline-primary my-auto ml-1 size-6 rounded-full bg-transparent text-white/80 hover:bg-white/10 active:bg-primary/30"
+          className="focus-visible:outline-primary my-auto ms-1 size-6 rounded-full bg-transparent text-white/80 hover:bg-white/10 active:bg-primary/30"
           onClick={handleIncrement}
         />
       )}

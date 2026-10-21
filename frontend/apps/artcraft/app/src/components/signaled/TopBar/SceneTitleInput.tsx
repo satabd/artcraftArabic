@@ -89,7 +89,7 @@ export const SceneTitleInput = ({ pageName }: Props) => {
     <div
       className={twMerge(
         "flex w-full items-center justify-center gap-1.5",
-        isSaving && "ml-3",
+        isSaving && "ms-3",
       )}
       data-tauri-drag-region
     >
@@ -103,7 +103,7 @@ export const SceneTitleInput = ({ pageName }: Props) => {
           </span>
           <ChevronRightIcon
             aria-hidden="true"
-            className="h-3 w-3 shrink-0 text-base-fg/50"
+            className="rtl-mirror h-3 w-3 shrink-0 text-base-fg/50"
           />
 
           {isSceneOwner ? (
@@ -113,7 +113,7 @@ export const SceneTitleInput = ({ pageName }: Props) => {
               data-tauri-drag-region="false"
             >
               <span className="truncate">{scene.value.title || ""}</span>
-              <PencilIcon className="ml-2 shrink-0 text-sm opacity-50" />
+              <PencilIcon className="ms-2 shrink-0 text-sm opacity-50" />
             </button>
           ) : (
             <div className="max-w-[280px] truncate border border-transparent px-3 py-1.5 text-sm font-semibold text-white/80">

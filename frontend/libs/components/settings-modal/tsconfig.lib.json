@@ -105,6 +105,9 @@
     },
     {
       "path": "../modal/tsconfig.lib.json"
+    },
+    {
+      "path": "../../common/tsconfig.lib.json"
     }
   ]
 }

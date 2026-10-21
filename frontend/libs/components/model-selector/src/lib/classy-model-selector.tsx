@@ -118,7 +118,7 @@ function ProviderTooltipContent({
               {getProviderDisplayName(p)}
             </span>
             {selectedProvider === p && (
-              <span className="ml-2 flex h-5 w-5 shrink-0 items-center justify-center text-white">
+              <span className="ms-2 flex h-5 w-5 shrink-0 items-center justify-center text-white">
                 <CheckIcon aria-hidden="true" className="h-4 w-4" strokeWidth={2.5} />
               </span>
             )}
@@ -229,7 +229,7 @@ export function ClassyModelSelector({
                     : undefined;
                   const iconProvider = prov ?? allowedProviders[0];
                   return iconProvider ? (
-                    <div className="mr-1 p-1.5 bg-ui-controls/60 group-hover:bg-ui-controls/80 transition-colors">
+                    <div className="me-1 p-1.5 bg-ui-controls/60 group-hover:bg-ui-controls/80 transition-colors">
                       <span className="text-base-fg/70 group-hover:text-base-fg/90 text-lg">
                         {getProviderIcon(iconProvider)}
                       </span>
@@ -241,7 +241,7 @@ export function ClassyModelSelector({
             isSameModel(item.model as Model | undefined, selectedModel) &&
             selectedProvider &&
             hasMultipleProviders ? (
-              <div className="mr-1 p-1.5 bg-primary/60 group-hover:bg-primary/80 transition-colors">
+              <div className="me-1 p-1.5 bg-primary/60 group-hover:bg-primary/80 transition-colors">
                 <span className="text-base-fg/70 group-hover:text-base-fg/90 text-lg">
                   {getProviderIcon(selectedProvider)}
                 </span>
@@ -313,7 +313,7 @@ export function ClassyModelSelector({
         mode="hoverSelect"
         maxListHeight={maxListHeight}
         {...popoverProps}
-        buttonClassName="rounded-[3px] bg-ui-controls text-left shadow-sm px-3 py-1 gap-3 border border-ui-controls-border"
+        buttonClassName="rounded-[3px] bg-ui-controls text-start shadow-sm px-3 py-1 gap-3 border border-ui-controls-border"
         renderTrigger={(selectedItem) => {
           const modelTitle =
             selectedItem?.label ?? selectedModel?.selectorName ?? "";

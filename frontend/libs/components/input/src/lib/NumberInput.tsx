@@ -63,18 +63,18 @@ export const NumberInput: React.FC<NumberInputProps> = ({
         inputClassName="w-[70px] h-[30px] rounded-[3px] text-sm"
       />
 
-      <div className="absolute right-0 top-0 flex h-[30px] flex-col rounded-r-[3px] border-l border-white/15 bg-ui-controls">
+      <div className="absolute end-0 top-0 flex h-[30px] flex-col rounded-e-[3px] border-s border-white/15 bg-ui-controls">
         <button
           className={twMerge(
             incrementButtonStyle,
-            "rounded-tr-[3px] border-b border-white/15",
+            "rounded-se-[3px] border-b border-white/15",
           )}
           onClick={handleIncrement}
         >
           <ChevronUpIcon />
         </button>
         <button
-          className={twMerge(incrementButtonStyle, "rounded-br-[3px]")}
+          className={twMerge(incrementButtonStyle, "rounded-ee-[3px]")}
           onClick={handleDecrement}
         >
           <ChevronDownIcon />

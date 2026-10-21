@@ -55,11 +55,11 @@ export const TimelineBar = ({ readOnly = false }: { readOnly?: boolean }) => {
         className="h-1 flex-1 cursor-pointer accent-white"
       />
       {readOnly ? (
-        <span className="w-9 shrink-0 text-right font-mono tabular-nums text-xs text-base-fg/70">
+        <span className="w-9 shrink-0 text-end font-mono tabular-nums text-xs text-base-fg/70">
           {formatTimecode(duration)}
         </span>
       ) : (
-        <DurationLabel className="shrink-0 text-right text-xs text-base-fg/70" />
+        <DurationLabel className="shrink-0 text-end text-xs text-base-fg/70" />
       )}
       {!readOnly && (
         <button

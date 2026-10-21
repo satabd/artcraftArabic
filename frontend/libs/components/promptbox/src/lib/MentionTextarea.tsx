@@ -1574,6 +1574,7 @@ export const MentionTextarea = forwardRef<HTMLDivElement, MentionTextareaProps>(
       <div className="relative flex-1 min-w-0 min-h-0 pb-[7px]">
         {!value && placeholder && (
           <div
+            dir="auto"
             className={twMerge(
               className,
               "absolute inset-0 pointer-events-none text-base-fg/60 z-[1]",
@@ -1585,6 +1586,7 @@ export const MentionTextarea = forwardRef<HTMLDivElement, MentionTextareaProps>(
 
         <div
           ref={editorRef}
+          dir="auto"
           contentEditable={!disabled}
           onInput={handleInput}
           onCompositionStart={handleCompositionStart}

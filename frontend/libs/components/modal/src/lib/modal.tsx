@@ -708,25 +708,25 @@ export const Modal = ({
     const handleSize = 5; // px
     const sideThickness = 2; // for edge handles
     const handles = [
-      { dir: "top", className: `top-0 left-0 w-full h-${sideThickness}` },
-      { dir: "bottom", className: `bottom-0 left-0 w-full h-${sideThickness}` },
-      { dir: "left", className: `left-0 top-0 h-full w-${sideThickness}` },
-      { dir: "right", className: `right-0 top-0 h-full w-${sideThickness}` },
+      { dir: "top", className: `top-0 start-0 w-full h-${sideThickness}` },
+      { dir: "bottom", className: `bottom-0 start-0 w-full h-${sideThickness}` },
+      { dir: "left", className: `start-0 top-0 h-full w-${sideThickness}` },
+      { dir: "right", className: `end-0 top-0 h-full w-${sideThickness}` },
       {
         dir: "top-left",
-        className: `top-0 left-0 w-${handleSize} h-${handleSize}`,
+        className: `top-0 start-0 w-${handleSize} h-${handleSize}`,
       },
       {
         dir: "top-right",
-        className: `top-0 right-0 w-${handleSize} h-${handleSize}`,
+        className: `top-0 end-0 w-${handleSize} h-${handleSize}`,
       },
       {
         dir: "bottom-left",
-        className: `bottom-0 left-0 w-${handleSize} h-${handleSize}`,
+        className: `bottom-0 start-0 w-${handleSize} h-${handleSize}`,
       },
       {
         dir: "bottom-right",
-        className: `bottom-0 right-0 w-${handleSize} h-${handleSize}`,
+        className: `bottom-0 end-0 w-${handleSize} h-${handleSize}`,
       },
     ];
 
@@ -1076,7 +1076,7 @@ export const Modal = ({
                   >
                     <animated.div
                       className={twMerge(
-                        "w-full max-w-lg rounded-none relative border border-ui-panel-border bg-ui-modal text-left align-middle z-[70]",
+                        "w-full max-w-lg rounded-none relative border border-ui-panel-border bg-ui-modal text-start align-middle z-[70]",
                         childPadding && !expanded ? "p-4" : "",
                         className,
                         "!transition-none", // Always disable CSS transitions for spring animations
@@ -1170,7 +1170,7 @@ export const Modal = ({
                         {renderResizeHandles()}
                       </div>
                       {(showClose || expandable) && (
-                        <div className="absolute top-0 right-0 m-2.5 z-[80] flex items-center gap-2">
+                        <div className="absolute top-0 end-0 m-2.5 z-[80] flex items-center gap-2">
                           {expandable && <Modal.ExpandButton />}
                           {showClose && <CloseButton onClick={onClose} />}
                         </div>

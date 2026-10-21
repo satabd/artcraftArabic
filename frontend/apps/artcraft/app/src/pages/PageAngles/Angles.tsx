@@ -569,7 +569,7 @@ export const Angles = () => {
             </div>
 
             {/* ── History stack (right side, like PageEdit) ── */}
-            <div className="absolute right-4 top-1/2 z-10 -translate-y-1/2">
+            <div className="absolute end-4 top-1/2 z-10 -translate-y-1/2">
               <HistoryStack
                 onClear={handleHistoryClear}
                 imageBundles={allBundles}
@@ -604,19 +604,19 @@ export const Angles = () => {
                   </button>
                   <button
                     onClick={() => handleRotationStep(-1)}
-                    className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-[3px] p-1 text-base-fg/40 transition-colors hover:text-base-fg/80"
+                    className="absolute start-0 top-1/2 z-10 -translate-y-1/2 rounded-[3px] p-1 text-base-fg/40 transition-colors hover:text-base-fg/80"
                   >
                     <ChevronLeftIcon
                       
-                      className="text-[10px]" />
+                      className="rtl-mirror text-[10px]" />
                   </button>
                   <button
                     onClick={() => handleRotationStep(1)}
-                    className="absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-[3px] p-1 text-base-fg/40 transition-colors hover:text-base-fg/80"
+                    className="absolute end-0 top-1/2 z-10 -translate-y-1/2 rounded-[3px] p-1 text-base-fg/40 transition-colors hover:text-base-fg/80"
                   >
                     <ChevronRightIcon
                       
-                      className="text-[10px]" />
+                      className="rtl-mirror text-[10px]" />
                   </button>
                   <OrbitSphere
                     rotation={angleConfig.rotation}
@@ -645,7 +645,7 @@ export const Angles = () => {
                         suffix="°"
                       />
                     </div>
-                    <span className="w-10 shrink-0 text-left font-mono text-xs tabular-nums text-base-fg/70">
+                    <span className="w-10 shrink-0 text-start font-mono text-xs tabular-nums text-base-fg/70">
                       {rotationToDisplay(angleConfig.rotation)}°
                     </span>
                   </div>
@@ -664,7 +664,7 @@ export const Angles = () => {
                         suffix="°"
                       />
                     </div>
-                    <span className="w-9 shrink-0 text-left font-mono text-xs tabular-nums text-base-fg/70">
+                    <span className="w-9 shrink-0 text-start font-mono text-xs tabular-nums text-base-fg/70">
                       {angleConfig.tilt}°
                     </span>
                   </div>
@@ -682,7 +682,7 @@ export const Angles = () => {
                         onChange={handleZoomSlider}
                       />
                     </div>
-                    <span className="w-9 shrink-0 text-left font-mono text-xs tabular-nums text-base-fg/70">
+                    <span className="w-9 shrink-0 text-start font-mono text-xs tabular-nums text-base-fg/70">
                       {angleConfig.zoom}
                     </span>
                   </div>
@@ -737,7 +737,7 @@ export const Angles = () => {
             </div>
 
             {/* ── Cost calculator + Help (bottom-right) ── */}
-            <div className="absolute bottom-4 right-4 z-20 flex items-center gap-2">
+            <div className="absolute bottom-4 end-4 z-20 flex items-center gap-2">
               <CostCalculatorButton modelPage={ANGLES_MODEL_PAGE} />
               <HelpMenuButton />
             </div>

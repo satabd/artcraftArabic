@@ -139,19 +139,19 @@ export const CameraFrame = ({
     >
       {/* Dim everything outside the frame (still visible, won't render). */}
       <div
-        className="absolute left-0 right-0 top-0 bg-black/60"
+        className="absolute start-0 end-0 top-0 bg-black/60"
         style={{ height: frame.y }}
       />
       <div
-        className="absolute bottom-0 left-0 right-0 bg-black/60"
+        className="absolute bottom-0 start-0 end-0 bg-black/60"
         style={{ height: height - bottomEdge }}
       />
       <div
-        className="absolute left-0 bg-black/60"
+        className="absolute start-0 bg-black/60"
         style={{ top: frame.y, height: frame.height, width: frame.x }}
       />
       <div
-        className="absolute right-0 bg-black/60"
+        className="absolute end-0 bg-black/60"
         style={{ top: frame.y, height: frame.height, width: width - right }}
       />
 
@@ -165,12 +165,12 @@ export const CameraFrame = ({
           height: frame.height,
         }}
       >
-        <div className="absolute bottom-0 left-1/3 top-0 w-px bg-white/15" />
-        <div className="absolute bottom-0 left-2/3 top-0 w-px bg-white/15" />
-        <div className="absolute left-0 right-0 top-1/3 h-px bg-white/15" />
-        <div className="absolute left-0 right-0 top-2/3 h-px bg-white/15" />
+        <div className="absolute bottom-0 start-1/3 top-0 w-px bg-white/15" />
+        <div className="absolute bottom-0 start-2/3 top-0 w-px bg-white/15" />
+        <div className="absolute start-0 end-0 top-1/3 h-px bg-white/15" />
+        <div className="absolute start-0 end-0 top-2/3 h-px bg-white/15" />
         {focalLength !== undefined && (
-          <div className="absolute left-3 top-2 text-sm font-medium text-white/80 drop-shadow">
+          <div className="absolute start-3 top-2 text-sm font-medium text-white/80 drop-shadow">
             {focalLength}mm
           </div>
         )}

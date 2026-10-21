@@ -2593,7 +2593,7 @@ export const GalleryModal = React.memo(
         >
           {mode === "view" && (
             <Modal.DragHandle>
-              <div className="absolute left-0 top-0 z-[50] h-[60px] w-full cursor-move" />
+              <div className="absolute start-0 top-0 z-[50] h-[60px] w-full cursor-move" />
             </Modal.DragHandle>
           )}
           <div className="relative flex h-full flex-col">
@@ -2743,7 +2743,7 @@ export const GalleryModal = React.memo(
                               onClick={() => setFolderMenuOpen(false)}
                             />
                             <FolderContextMenuItems
-                              className="absolute left-0 top-full mt-1"
+                              className="absolute start-0 top-full mt-1"
                               folderId={activeFolderId!}
                               hasStar={activeFolder?.hasStar}
                               colorCode={activeFolder?.colorCode}
@@ -2819,7 +2819,7 @@ export const GalleryModal = React.memo(
                       </div>
                     )}
                 </div>
-                <div className="flex justify-end gap-2 items-center flex-wrap ml-auto">
+                <div className="flex justify-end gap-2 items-center flex-wrap ms-auto">
                   {/* Refresh button */}
                   <Tooltip
                     position="top"
@@ -2899,7 +2899,7 @@ export const GalleryModal = React.memo(
               {/* ── Filter sidebar ── shown on both tabs; clicking a filter
                   jumps back to the library, clicking a folder into the browser */}
               {!hideFilter && (
-                <div className="w-52 min-w-[13rem] border-r border-ui-panel-border bg-ui-panel flex flex-col overflow-hidden">
+                <div className="w-52 min-w-[13rem] border-e border-ui-panel-border bg-ui-panel flex flex-col overflow-hidden">
                   {/* Filter items — pinned; they never scroll out of view */}
                   <div className="flex flex-col px-1.5 pt-2 pb-1 flex-shrink-0">
                     {SIDEBAR_FILTERS.map((f) => {
@@ -3001,7 +3001,7 @@ export const GalleryModal = React.memo(
                           />
                           <span className="truncate">{folder.name}</span>
                           {folder.hasStar && (
-                            <StarIcon className="ml-auto text-[10px] text-amber-400" />
+                            <StarIcon className="ms-auto text-[10px] text-amber-400" />
                           )}
                         </button>
                       ))
@@ -3033,7 +3033,7 @@ export const GalleryModal = React.memo(
                           >
                             <TagIcon className="text-xs w-4 text-violet-400" />
                             <span className="truncate">{tag.tag_value}</span>
-                            <span className="ml-auto text-[10px] text-base-fg/40">
+                            <span className="ms-auto text-[10px] text-base-fg/40">
                               {tag.use_count}
                             </span>
                           </button>
@@ -3050,7 +3050,7 @@ export const GalleryModal = React.memo(
                         >
                           <EllipsisIcon className="text-xs w-4" />
                           <span>All tags</span>
-                          <span className="ml-auto text-[10px] text-base-fg/40">
+                          <span className="ms-auto text-[10px] text-base-fg/40">
                             {sortedTags.length}
                           </span>
                         </button>
@@ -3576,7 +3576,7 @@ export const GalleryModal = React.memo(
                           className="fixed inset-0 z-[59]"
                           onClick={() => setBulkFolderPopoverOpen(false)}
                         />
-                        <div className="absolute bottom-full mb-2 right-0 w-56 rounded-[3px] border border-ui-panel-border bg-ui-panel p-2 shadow-xl z-[60]">
+                        <div className="absolute bottom-full mb-2 end-0 w-56 rounded-[3px] border border-ui-panel-border bg-ui-panel p-2 shadow-xl z-[60]">
                           {/* Folders */}
                           <div className="text-[11px] font-semibold uppercase tracking-wider text-base-fg/40 px-2 py-1">
                             Folders
