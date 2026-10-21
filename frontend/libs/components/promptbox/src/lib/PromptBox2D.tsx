@@ -433,7 +433,7 @@ export const PromptBox2D = ({
                 ref={textareaRef}
                 rows={1}
                 placeholder="Describe your image..."
-                className={`promptbox-scrollbar text-md min-h-[2.5em] w-full resize-y overflow-y-auto bg-transparent pr-8 text-base-fg placeholder-base-fg/60 focus:outline-none ${isExpanded ? "max-h-[500px]" : "max-h-[5.5em]"}`}
+                className={`promptbox-scrollbar text-md min-h-[2.5em] w-full resize-y overflow-y-auto bg-transparent pe-8 text-base-fg placeholder-base-fg/60 focus:outline-none ${isExpanded ? "max-h-[500px]" : "max-h-[5.5em]"}`}
                 value={prompt}
                 onChange={handleChange}
                 onPaste={handlePaste}
@@ -443,7 +443,7 @@ export const PromptBox2D = ({
               />
               <PromptFullscreenButton onClick={openFullscreen} />
               <span
-                className={`pointer-events-none absolute -bottom-1 right-4 text-[10px] tabular-nums ${isFinite(maxLen) && prompt.length > maxLen ? "text-red-500" : "text-base-fg/40"}`}
+                className={`pointer-events-none absolute -bottom-1 end-4 text-[10px] tabular-nums ${isFinite(maxLen) && prompt.length > maxLen ? "text-red-500" : "text-base-fg/40"}`}
               >
                 {prompt.length} / {isFinite(maxLen) ? maxLen : "∞"}
               </span>

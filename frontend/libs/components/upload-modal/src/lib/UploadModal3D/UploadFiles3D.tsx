@@ -610,7 +610,7 @@ export const UploadFiles3D = ({
   // chrome. Shared by the single and multi layouts.
   const animationPicker = (previewAnimations.length > 0 ||
     previewHasRig) && (
-    <div className="pointer-events-auto absolute right-2 top-2 z-10 flex items-start gap-2">
+    <div className="pointer-events-auto absolute end-2 top-2 z-10 flex items-start gap-2">
       {previewHasRig && (
         <button
           type="button"
@@ -665,12 +665,12 @@ export const UploadFiles3D = ({
   // or when its conversion failed (the sidebar only exists in multi mode).
   const currentEntry = fileEntries[previewIndex];
   const convertingOverlay = isConvertingCurrent ? (
-    <h6 className="pointer-events-none absolute left-0 top-1/2 -mt-5 flex w-full items-center justify-center gap-2.5 text-center opacity-60">
+    <h6 className="pointer-events-none absolute start-0 top-1/2 -mt-5 flex w-full items-center justify-center gap-2.5 text-center opacity-60">
       <LoaderIcon  className="animate-spin" />
       Converting FBX to GLB...
     </h6>
   ) : currentEntry?.status === "error" && isFbx(currentEntry.file) ? (
-    <h6 className="pointer-events-none absolute left-0 top-1/2 -mt-5 w-full px-4 text-center text-red-400">
+    <h6 className="pointer-events-none absolute start-0 top-1/2 -mt-5 w-full px-4 text-center text-red-400">
       {currentEntry.errorMessage ?? "FBX conversion failed."}
     </h6>
   ) : null;
@@ -773,13 +773,13 @@ export const UploadFiles3D = ({
               {animationPicker}
               {convertingOverlay}
               {!currentFile && (
-                <h6 className="pointer-events-auto absolute left-0 top-1/2 -mt-5 flex w-full items-center justify-center gap-2.5 text-center opacity-50">
+                <h6 className="pointer-events-auto absolute start-0 top-1/2 -mt-5 flex w-full items-center justify-center gap-2.5 text-center opacity-50">
                   <BoxIcon />
                   Your model preview will appear here
                 </h6>
               )}
               {previewStatus.type.includes("Error") && (
-                <h6 className="pointer-events-auto absolute left-0 top-1/2 -mt-5 w-full text-center">
+                <h6 className="pointer-events-auto absolute start-0 top-1/2 -mt-5 w-full text-center">
                   {previewStatus.type}
                   {previewStatus.message && <br />}
                   {previewStatus.message}
@@ -792,7 +792,7 @@ export const UploadFiles3D = ({
                 onClick={() => setPreviewIndex((p) => Math.max(0, p - 1))}
                 disabled={previewIndex === 0}
               >
-                <ChevronLeftIcon />
+                <ChevronLeftIcon className="rtl-mirror" />
               </Button>
               <span className="text-sm opacity-60">
                 {previewIndex + 1} / {fileEntries.length}
@@ -806,7 +806,7 @@ export const UploadFiles3D = ({
                 }
                 disabled={previewIndex === fileEntries.length - 1}
               >
-                <ChevronRightIcon />
+                <ChevronRightIcon className="rtl-mirror" />
               </Button>
             </div>
           </div>
@@ -821,13 +821,13 @@ export const UploadFiles3D = ({
           {animationPicker}
           {convertingOverlay}
           {!currentFile && (
-            <h6 className="pointer-events-auto absolute left-0 top-1/2 -mt-5 flex w-full items-center justify-center gap-2.5 text-center opacity-50">
+            <h6 className="pointer-events-auto absolute start-0 top-1/2 -mt-5 flex w-full items-center justify-center gap-2.5 text-center opacity-50">
               <BoxIcon />
               Your model preview will appear here
             </h6>
           )}
           {previewStatus.type.includes("Error") && (
-            <h6 className="pointer-events-auto absolute left-0 top-1/2 -mt-5 w-full text-center">
+            <h6 className="pointer-events-auto absolute start-0 top-1/2 -mt-5 w-full text-center">
               {previewStatus.type}
               {previewStatus.message && <br />}
               {previewStatus.message}

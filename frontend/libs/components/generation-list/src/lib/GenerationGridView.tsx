@@ -25,7 +25,7 @@ const BREAKPOINT_COLS = {
 // 12px gap on both axes (≈ Tailwind gap-3).
 // ml-[-12px] on container offsets the first column's pl-[8px].
 const MASONRY_CLASS = "flex w-auto ml-[-12px]";
-const COLUMN_CLASS = "pl-[8px]";
+const COLUMN_CLASS = "ps-[8px]";
 
 // ── Component ──────────────────────────────────────────────────────────────
 

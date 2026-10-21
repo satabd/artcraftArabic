@@ -7,7 +7,13 @@ import { defaultTutorials, TutorialItem } from "./tutorials.js";
 import { useTutorialModalStore } from "./help-menu-store";
 import { Button } from "@storyteller/ui-button";
 import { PopoverMenu, PopoverItem } from "@storyteller/ui-popover";
-import { getNewsPosts, markdownToHtml } from "@storyteller/markdown-content";
+import { useLanguage } from "@storyteller/common";
+import {
+  getDocumentDirection,
+  getNewsPosts,
+  markdownToHtml,
+  type NewsPostData,
+} from "@storyteller/markdown-content";
 
 export type HelpMenuButtonProps = {
   items?: TutorialItem[];
@@ -20,8 +26,11 @@ export type HelpMenuButtonProps = {
 const NewsView = ({ onBack }: { onBack: () => void }) => {
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
 
-  const bundledItems = useMemo(() => getNewsPosts(), []);
-  const [items, setItems] = useState(bundledItems);
+  const language = useLanguage();
+  // Bundled posts follow the app language; a fetched feed replaces them.
+  const bundledItems = useMemo(() => getNewsPosts({ language }), [language]);
+  const [remoteItems, setRemoteItems] = useState<NewsPostData[] | null>(null);
+  const items = remoteItems ?? bundledItems;
 
   useEffect(() => {
     // Attempt to fetch fresh news
@@ -34,7 +43,7 @@ const NewsView = ({ onBack }: { onBack: () => void }) => {
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data)) {
-            setItems(data);
+            setRemoteItems(data as NewsPostData[]);
           }
         }
       } catch (e) {
@@ -54,18 +63,24 @@ const NewsView = ({ onBack }: { onBack: () => void }) => {
     () => (selectedPost ? markdownToHtml(selectedPost.body) : ""),
     [selectedPost],
   );
+  // The remote feed may predate lang/direction; derive it from the text then.
+  const postDirection = selectedPost ? getDocumentDirection(selectedPost) : "ltr";
 
   if (selectedPost) {
     return (
-      <div className="flex flex-col h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+      <div className="flex flex-col h-[500px] overflow-y-auto pe-2 custom-scrollbar">
         <button
           onClick={() => setSelectedSlug(null)}
           className="self-start mb-4 text-sm flex items-center gap-2 text-white/60 hover:text-white transition-colors"
         >
-          <ChevronLeftIcon /> Back to News
+          <ChevronLeftIcon className="rtl-mirror" /> Back to News
         </button>
 
-        <div className="article-content">
+        <div
+          className="article-content"
+          lang={selectedPost.lang}
+          dir={postDirection}
+        >
           <h1 className="font-display text-2xl font-bold mb-2">{selectedPost.title}</h1>
           {selectedPost.date && (
             <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-white/50 mb-4">{selectedPost.date}</p>
@@ -89,7 +104,7 @@ const NewsView = ({ onBack }: { onBack: () => void }) => {
           .article-content h2 { font-size: 1.25rem; font-weight: 700; margin: 1rem 0 0.5rem; color: #ffffff; }
           .article-content h3 { font-size: 1.1rem; font-weight: 600; margin: 0.75rem 0 0.5rem; }
           .article-content p { margin-bottom: 0.75rem; line-height: 1.6; }
-          .article-content ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+          .article-content ul { list-style: disc; padding-inline-start: 1.25rem; margin-bottom: 0.75rem; }
           .article-content li { margin-bottom: 0.25rem; }
           .article-content img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 0; border: 1px solid rgba(255,255,255,0.15); margin: 1rem 0; }
           .article-content a { color: #74aaff; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
@@ -98,7 +113,7 @@ const NewsView = ({ onBack }: { onBack: () => void }) => {
           /* Video embed styles */
           .article-content .video-embed { position: relative; width: 100%; margin: 1.5rem 0; border-radius: 0; overflow: hidden; border: 1px solid rgba(255,255,255,0.15); background: #000; }
           .article-content .youtube-embed { padding-bottom: 56.25%; /* 16:9 aspect ratio */ height: 0; }
-          .article-content .youtube-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+          .article-content .youtube-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
           .article-content .video-embed video { display: block; width: 100%; height: auto; max-height: 50vh; }
         `}</style>
       </div>
@@ -106,12 +121,14 @@ const NewsView = ({ onBack }: { onBack: () => void }) => {
   }
 
   return (
-    <div className="flex flex-col gap-4 mt-2 h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+    <div className="flex flex-col gap-4 mt-2 h-[500px] overflow-y-auto pe-2 custom-scrollbar">
       {items.map((item) => (
         <div
           key={item.slug}
           onClick={() => setSelectedSlug(item.slug)}
           className="bg-white/5 hover:bg-white/[0.07] border border-white/15 hover:border-white/25 p-4 rounded-none cursor-pointer transition-colors group"
+          lang={item.lang}
+          dir={getDocumentDirection(item)}
         >
           <div className="flex justify-between items-start">
             <h3 className="text-lg font-semibold group-hover:text-white transition-colors flex items-center gap-2">
@@ -119,10 +136,10 @@ const NewsView = ({ onBack }: { onBack: () => void }) => {
               <ArrowRightIcon
                 
                 size="xs"
-                className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-white" />
+                className="rtl-mirror opacity-0 -translate-x-2 rtl:translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 rtl:group-hover:translate-x-0 transition-all text-white" />
             </h3>
             {item.date && (
-              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-white/40 whitespace-nowrap ml-2">
+              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-white/40 whitespace-nowrap ms-2">
                 {item.date}
               </span>
             )}
@@ -372,7 +389,7 @@ export function HelpMenuButton({
                     key={item.id}
                     type="button"
                     onClick={() => viewTutorial(item)}
-                    className="group block overflow-hidden rounded-none border border-white/15 bg-white/5 transition-colors hover:border-white/25 hover:bg-white/[0.07] text-left"
+                    className="group block overflow-hidden rounded-none border border-white/15 bg-white/5 transition-colors hover:border-white/25 hover:bg-white/[0.07] text-start"
                   >
                     <div className="aspect-video w-full overflow-hidden">
                       <img

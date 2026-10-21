@@ -65,7 +65,7 @@ interface MetadataEditorProps {
 }
 
 const MetadataEditor = ({ board, onUpdate, onDelete, onUpload, onSketch }: MetadataEditorProps) => (
-  <aside className="flex w-[280px] shrink-0 flex-col border-r border-ui-panel-border bg-ui-panel">
+  <aside className="flex w-[280px] shrink-0 flex-col border-e border-ui-panel-border bg-ui-panel">
     <div className="flex-1 overflow-y-auto p-4">
       <div className="flex flex-col gap-3">
         <div className="hud-label text-base-fg/40">
@@ -401,7 +401,7 @@ const SketchCanvas = ({ initialImageDataUrl, onSave, onExit }: SketchCanvasProps
         <button
           onClick={onExit}
           title="Done sketching"
-          className="ml-auto flex h-8 items-center gap-1.5 rounded-[3px] bg-white px-3 text-xs font-medium text-black transition-colors hover:bg-white/85"
+          className="ms-auto flex h-8 items-center gap-1.5 rounded-[3px] bg-white px-3 text-xs font-medium text-black transition-colors hover:bg-white/85"
         >
           <CheckIcon  className="text-xs" />
           Done
@@ -481,7 +481,7 @@ const ThumbnailItem = ({
         <ImagesIcon  className="text-lg text-base-fg/20" />
       </div>
     )}
-    <div className="absolute bottom-0 left-0 right-0 bg-black/60 px-1.5 py-0.5">
+    <div className="absolute bottom-0 start-0 end-0 bg-black/60 px-1.5 py-0.5">
       <span className="font-mono text-[10px] tabular-nums text-white/85">{board.shotNumber}</span>
     </div>
   </div>
@@ -782,7 +782,7 @@ const Timeline = ({
                 {/* Resize handle */}
                 <div
                   data-resize="true"
-                  className="absolute right-0 top-0 bottom-0 w-2 opacity-0 transition-opacity hover:bg-white/30 hover:opacity-100"
+                  className="absolute end-0 top-0 bottom-0 w-2 opacity-0 transition-opacity hover:bg-white/30 hover:opacity-100"
                   style={{ cursor: "ew-resize" }}
                   onPointerDown={(e) => handleResizePointerDown(e, board.id, board.duration)}
                   title="Drag to resize duration"
@@ -798,7 +798,7 @@ const Timeline = ({
               style={{ left: dragState.caretX }}
             >
               {/* Downward-pointing triangle at top */}
-              <div className="absolute -left-[5px] -top-[6px] h-0 w-0 border-x-[5px] border-t-[6px] border-x-transparent border-t-yellow-400" />
+              <div className="absolute -start-[5px] -top-[6px] h-0 w-0 border-x-[5px] border-t-[6px] border-x-transparent border-t-yellow-400" />
             </div>
           )}
 
@@ -807,7 +807,7 @@ const Timeline = ({
             className="pointer-events-none absolute top-0 bottom-0 z-20 w-px bg-white"
             style={{ left: playheadLeft }}
           >
-            <div className="absolute -left-[4px] top-0 h-0 w-0 border-x-[4px] border-t-[7px] border-x-transparent border-t-white" />
+            <div className="absolute -start-[4px] top-0 h-0 w-0 border-x-[4px] border-t-[7px] border-x-transparent border-t-white" />
           </div>
         </div>
       </div>
@@ -1203,7 +1203,7 @@ export const Storyboard = () => {
             onSketch={handleSketchOpen}
           />
         ) : (
-          <div className="w-[280px] shrink-0 border-r border-ui-panel-border bg-ui-panel" />
+          <div className="w-[280px] shrink-0 border-e border-ui-panel-border bg-ui-panel" />
         )}
         {isSketchMode && selectedBoard ? (
           <SketchCanvas

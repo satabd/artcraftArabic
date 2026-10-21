@@ -43,7 +43,6 @@ export const Input = React.forwardRef(
           )}
           <input
             ref={ref}
-            dir="auto"
             id={id ? id : label ? label : undefined}
             className={twMerge(
               "h-10 w-full rounded-[3px] px-3 py-2.5 outline-none",

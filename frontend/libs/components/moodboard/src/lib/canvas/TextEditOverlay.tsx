@@ -49,7 +49,6 @@ export const TextEditOverlay = ({ containerRef }: Props) => {
   return (
     <textarea
       ref={taRef}
-      dir="auto"
       defaultValue={node.text}
       onBlur={commit}
       onKeyDown={(e) => {

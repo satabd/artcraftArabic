@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useLanguage } from "@storyteller/common";
 import { getNewsPosts } from "../data/content";
 import { ArrowRightIcon } from "lucide-react";
 
@@ -7,7 +8,8 @@ interface NewsIndexProps {
 }
 
 export const NewsIndex = ({ basePath }: NewsIndexProps) => {
-  const items = getNewsPosts();
+  const language = useLanguage();
+  const items = getNewsPosts({ language });
   const title = "News & Updates";
   const description =
     "Latest updates, features, and announcements from the ArtCraft team.";
@@ -40,15 +42,25 @@ export const NewsIndex = ({ basePath }: NewsIndexProps) => {
               className="group block rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 p-6 transition-all"
             >
               <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-2">
-                <h2 className="text-2xl font-semibold group-hover:text-blue-400 transition-colors flex items-center gap-3">
+                <h2
+                  className="text-2xl font-semibold group-hover:text-blue-400 transition-colors flex items-center gap-3"
+                  lang={item.lang}
+                  dir={item.direction}
+                >
                   {item.title}
-                  <ArrowRightIcon  className="text-xl opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                  <ArrowRightIcon className="rtl-mirror text-xl opacity-0 -translate-x-2 rtl:translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 rtl:group-hover:translate-x-0 transition-all duration-300" />
                 </h2>
                 {item.date && (
                    <span className="text-white/50 text-sm font-mono shrink-0">{item.date}</span>
                 )}
               </div>
-              <p className="text-white/70 text-base leading-relaxed">{item.description}</p>
+              <p
+                className="text-white/70 text-base leading-relaxed"
+                lang={item.lang}
+                dir={item.direction}
+              >
+                {item.description}
+              </p>
             </Link>
           ))}
           {items.length === 0 && (

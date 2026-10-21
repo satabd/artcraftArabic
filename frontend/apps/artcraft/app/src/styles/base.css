@@ -907,14 +907,28 @@ img {
   font-stretch: normal;
 }
 
-/* Every text field follows the direction of what the user types (same as
-   dir="auto"), so Arabic prompts read right-to-left even in the English UI
-   and English text stays left-to-right in the Arabic UI. Components that
-   need it also set dir="auto" explicitly for engines without this rule. */
-input:not([type="number"]):not([type="range"]):not([type="color"]),
-textarea,
-[contenteditable="true"],
-[contenteditable="plaintext-only"] {
+/* Text fields: once a field has content, its text follows the direction of
+   what was typed (Arabic reads right-to-left in the English UI, English stays
+   left-to-right in the Arabic UI). While the placeholder is showing, the
+   field follows the UI direction so placeholders and wrapper-positioned
+   icons sit on the correct side. The box itself always keeps the layout
+   direction, which is why this is unicode-bidi rather than dir="auto":
+   dir="auto" would flip logical padding against the icons next to it. */
+input:not([type="number"]):not([type="range"]):not([type="color"]):not(:placeholder-shown),
+textarea:not(:placeholder-shown) {
+  unicode-bidi: plaintext;
+}
+
+/* Placeholders read in their own language's direction too, so an English
+   hint keeps its trailing "..." on the right and an Arabic hint reads
+   right-to-left, whichever UI direction is active. */
+input::placeholder,
+textarea::placeholder {
+  unicode-bidi: plaintext;
+}
+
+/* Same behaviour for any rendered block of user text (prompts, captions). */
+.bidi-auto {
   unicode-bidi: plaintext;
 }
 

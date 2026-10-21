@@ -439,7 +439,7 @@ export const TopBar = ({ pageName }: Props) => {
             className={`flex items-center gap-3 ${platform === "macos" ? "ms-14" : ""}`}
             data-tauri-drag-region
           >
-            {/* <div className="mr-2" data-tauri-drag-region>
+            {/* <div className="me-2" data-tauri-drag-region>
               <span className="sr-only" data-tauri-drag-region>
                 ArtCraft
               </span>
@@ -505,7 +505,7 @@ export const TopBar = ({ pageName }: Props) => {
                       {i > 0 && (
                         <ChevronRightIcon
                           aria-hidden="true"
-                          className="h-3 w-3 shrink-0 text-base-fg/50"
+                          className="rtl-mirror h-3 w-3 shrink-0 text-base-fg/50"
                           data-tauri-drag-region
                         />
                       )}

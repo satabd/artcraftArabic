@@ -261,7 +261,7 @@ function PlanCell({
           )}
         >
           {ctaLabel}
-          {!isCurrent && <ArrowRightIcon aria-hidden className="h-3.5 w-3.5" />}
+          {!isCurrent && <ArrowRightIcon aria-hidden className="rtl-mirror h-3.5 w-3.5" />}
         </Button>
 
         <p className="pricing-hud mt-8 text-white/40">What you get</p>

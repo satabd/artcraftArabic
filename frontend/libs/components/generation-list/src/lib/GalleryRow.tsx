@@ -133,14 +133,14 @@ export const GalleryRow = memo(function GalleryRow({
         {isVideo && item.thumbnail && (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black/55 backdrop-blur-sm">
-              <PlayIcon className="ml-0.5 text-[9px] text-white/90" />
+              <PlayIcon className="ms-0.5 text-[9px] text-white/90" />
             </span>
           </div>
         )}
         {/* Persistent "Last viewed" badge (stays until another item is
             opened in the lightbox). */}
         {lastViewed && (
-          <div className="pointer-events-none absolute left-1 top-1 z-10 flex items-center gap-1 rounded-full bg-black/70 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-white/80">
+          <div className="pointer-events-none absolute start-1 top-1 z-10 flex items-center gap-1 rounded-full bg-black/70 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-white/80">
             <EyeIcon />
             Last viewed
           </div>
@@ -201,7 +201,7 @@ export const GalleryRow = memo(function GalleryRow({
               {actionsSlot}
             </div>
           )}
-          <span className="ml-auto shrink-0 whitespace-nowrap text-white/40">
+          <span className="ms-auto shrink-0 whitespace-nowrap text-white/40">
             {timeAgo}
           </span>
         </div>

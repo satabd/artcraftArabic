@@ -1,3 +1,9 @@
+// Every text block gets dir="auto": the browser picks the block's direction
+// from its first strong character, so Arabic/Hebrew paragraphs, headings,
+// bullets and quotes read right-to-left (and align to the right) even inside
+// an English document, and vice versa.
+const BLOCK_DIR_ATTR = ' dir="auto"';
+
 export const markdownToHtml = (
   markdown: string,
   basePath: string = "",
@@ -157,7 +163,7 @@ export const markdownToHtml = (
   const flushParagraph = () => {
     if (paragraphLines.length > 0) {
       const text = paragraphLines.map(renderInline).join(" ");
-      htmlParts.push(`<p>${text}</p>`);
+      htmlParts.push(`<p${BLOCK_DIR_ATTR}>${text}</p>`);
       paragraphLines = [];
     }
   };
@@ -165,7 +171,9 @@ export const markdownToHtml = (
   const flushBlockquote = () => {
     if (blockquoteLines.length > 0) {
       const content = blockquoteLines.join(" ");
-      htmlParts.push(`<blockquote>${renderInline(content)}</blockquote>`);
+      htmlParts.push(
+        `<blockquote${BLOCK_DIR_ATTR}>${renderInline(content)}</blockquote>`,
+      );
       blockquoteLines = [];
     }
   };
@@ -195,7 +203,9 @@ export const markdownToHtml = (
       if (videoId) {
         htmlParts.push(renderYouTubeEmbed(videoId));
       } else {
-        htmlParts.push(`<p>Invalid YouTube video: ${youtubeMatch[1]}</p>`);
+        htmlParts.push(
+          `<p${BLOCK_DIR_ATTR}>Invalid YouTube video: ${youtubeMatch[1]}</p>`,
+        );
       }
       continue;
     }
@@ -238,7 +248,7 @@ export const markdownToHtml = (
       closeListIfOpen();
       const level = Math.min(heading[1].length, 6);
       const text = renderInline(heading[2] || "");
-      htmlParts.push(`<h${level}>${text}</h${level}>`);
+      htmlParts.push(`<h${level}${BLOCK_DIR_ATTR}>${text}</h${level}>`);
       continue;
     }
     // Standalone image/video line: ![alt](url|size)
@@ -262,9 +272,9 @@ export const markdownToHtml = (
       flushParagraph();
       if (!inList) {
         inList = true;
-        htmlParts.push("<ul>");
+        htmlParts.push(`<ul${BLOCK_DIR_ATTR}>`);
       }
-      htmlParts.push(`<li>${renderInline(line.slice(2))}</li>`);
+      htmlParts.push(`<li${BLOCK_DIR_ATTR}>${renderInline(line.slice(2))}</li>`);
       continue;
     }
     if (line.trim() === "") {
@@ -324,4 +334,21 @@ export const pathToFilename = (path: string): string => {
   const parts = path.split("/");
   const filename = parts[parts.length - 1] || "";
   return filename.replace(/\.md$/, "");
+};
+
+export type LocalizedFilename = {
+  /** Filename without the extension or language suffix. */
+  slug: string;
+  /** Two-letter language suffix, e.g. "ar" for `welcome.ar.md`. */
+  lang?: string;
+};
+
+// Translated documents sit next to the original with a language suffix:
+// `welcome.md` (English) and `welcome.ar.md` (Arabic) share the slug
+// "welcome". Frontmatter `lang:` can override the suffix.
+export const parseLocalizedFilename = (path: string): LocalizedFilename => {
+  const filename = pathToFilename(path);
+  const match = filename.match(/^(.+)\.([a-z]{2})$/);
+  if (!match) return { slug: filename };
+  return { slug: match[1], lang: match[2] };
 };

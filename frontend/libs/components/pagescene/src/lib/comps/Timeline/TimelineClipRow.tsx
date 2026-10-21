@@ -213,7 +213,7 @@ export const TimelineClipRow = ({
                       <button
                         key={clipIndex}
                         type="button"
-                        className="block w-full truncate px-2.5 py-1 text-left text-[11px] text-base-fg/90 hover:bg-white/10"
+                        className="block w-full truncate px-2.5 py-1 text-start text-[11px] text-base-fg/90 hover:bg-white/10"
                         onClick={() => addBaked(clipIndex)}
                       >
                         {clipName}
@@ -327,7 +327,7 @@ export const TimelineClipRow = ({
 
               {/* right-edge trim handle */}
               <div
-                className="absolute inset-y-0 right-0 w-1.5 cursor-ew-resize rounded-r-md bg-white/40 hover:bg-white/70"
+                className="absolute inset-y-0 end-0 w-1.5 cursor-ew-resize rounded-e-md bg-white/40 hover:bg-white/70"
                 title="Trim clip length"
                 onPointerDown={(e) => {
                   e.stopPropagation();

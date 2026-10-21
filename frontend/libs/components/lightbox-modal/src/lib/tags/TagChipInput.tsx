@@ -134,7 +134,7 @@ export function TagChipInput({
   };
 
   const chipClass = (value: string) =>
-    `flex items-center gap-1 break-all text-left rounded-[3px] border border-white/15 bg-white/5 px-2.5 py-1 text-[11px] font-medium text-base-fg/80 transition-all ${
+    `flex items-center gap-1 break-all text-start rounded-[3px] border border-white/15 bg-white/5 px-2.5 py-1 text-[11px] font-medium text-base-fg/80 transition-all ${
       flashValue === value ? "ring-2 ring-primary" : ""
     }`;
 
@@ -192,7 +192,7 @@ export function TagChipInput({
 
       {dropdownOpen && (
         <div
-          className={`absolute left-0 right-0 z-30 max-h-48 overflow-y-auto rounded-none border border-ui-panel-border bg-ui-panel p-1 shadow-xl ${
+          className={`absolute start-0 end-0 z-30 max-h-48 overflow-y-auto rounded-none border border-ui-panel-border bg-ui-panel p-1 shadow-xl ${
             dropUp ? "bottom-full mb-1" : "top-full mt-1"
           }`}
         >
@@ -210,7 +210,7 @@ export function TagChipInput({
             >
               <TagIcon  className="text-[10px] text-base-fg/40" />
               <span className="truncate">{suggestion.value}</span>
-              <span className="ml-auto text-[11px] text-base-fg/40">
+              <span className="ms-auto text-[11px] text-base-fg/40">
                 {suggestion.useCount}
               </span>
             </button>

@@ -287,7 +287,7 @@ export const UploadFilesImage = ({
                   onClick={() => setPreviewIndex((p) => Math.max(0, p - 1))}
                   disabled={previewIndex === 0}
                 >
-                  <ChevronLeftIcon />
+                  <ChevronLeftIcon className="rtl-mirror" />
                 </Button>
                 <span className="text-sm opacity-60">
                   {previewIndex + 1} / {fileEntries.length}
@@ -301,7 +301,7 @@ export const UploadFilesImage = ({
                   }
                   disabled={previewIndex === fileEntries.length - 1}
                 >
-                  <ChevronRightIcon />
+                  <ChevronRightIcon className="rtl-mirror" />
                 </Button>
               </div>
             </div>
